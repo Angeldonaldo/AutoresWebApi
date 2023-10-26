@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPIAutores.Entidades;
+using WebAPIAutores.Servicios;
 
 namespace WebAPIAutores.Controllers
 {
@@ -11,15 +12,19 @@ namespace WebAPIAutores.Controllers
 
           
         private readonly ApplicationDbContext context;
+        private readonly IServicio servicio;
 
-        public AutoresController(ApplicationDbContext context) {
+        public AutoresController(ApplicationDbContext context, IServicio servicio) {
             this.context = context;
-            }
+            this.servicio = servicio;
+        }
+
         [HttpGet]
         [HttpGet("listado")]
         [HttpGet("/listado")]
         public async Task<ActionResult<List<Autor>>> Get()
         {
+            servicio.RealizarTarea();
             return await context.Autores.Include(x=>x.Libros).ToListAsync();
         }
         [HttpGet("primero")]

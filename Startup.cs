@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using WebAPIAutores.Controllers;
+using WebAPIAutores.Servicios;
 
 namespace WebAPIAutores
 {
@@ -14,12 +16,14 @@ namespace WebAPIAutores
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler= ReferenceHandler.IgnoreCycles );
             services.AddDbContext<ApplicationDbContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.AddTransient<IServicio, ServicioB>();
+            services.AddSwaggerGen(c => c.SwaggerDoc("v1",new Microsoft.OpenApi.Models.OpenApiInfo { Title ="WebApiAutores",Version= "v1"}));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
