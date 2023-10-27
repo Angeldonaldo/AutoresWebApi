@@ -22,7 +22,10 @@ namespace WebAPIAutores
             options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
-            services.AddTransient<IServicio, ServicioB>();
+            services.AddTransient<IServicio, ServicioA>();
+            services.AddTransient<ServicioTransient>();
+            services.AddScoped<ServicioScoped>();
+            services.AddScoped<ServicioSingleton>();
             services.AddSwaggerGen(c => c.SwaggerDoc("v1",new Microsoft.OpenApi.Models.OpenApiInfo { Title ="WebApiAutores",Version= "v1"}));
         }
 
