@@ -1,13 +1,16 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPIAutores.Entidades;
+using WebAPIAutores.Filtros;
 using WebAPIAutores.Servicios;
 
 namespace WebAPIAutores.Controllers
 {
     [ApiController]
     [Route("api/autores")]
+    //[Authorize]
     public class AutoresController : ControllerBase { 
 
           
@@ -28,6 +31,8 @@ namespace WebAPIAutores.Controllers
             this.logger = logger;
         }
         [HttpGet("GUID")]
+        //[ResponseCache(Duration = 10)]
+        [ServiceFilter(typeof(MiFiltroDeAccion))]
         public ActionResult ObtenerGuids()
         {
             return Ok(new
@@ -44,8 +49,12 @@ namespace WebAPIAutores.Controllers
         [HttpGet]
         [HttpGet("listado")]
         [HttpGet("/listado")]
+        [ResponseCache(Duration = 10)]
+        [ServiceFilter(typeof(MiFiltroDeAccion))]
+
         public async Task<ActionResult<List<Autor>>> Get()
         {
+            //throw new NotImplementedException();
             logger.LogInformation("Estamos obteniedo los autoes");
             logger.LogWarning("Este es un mensaje de prueba");
             servicio.RealizarTarea();
