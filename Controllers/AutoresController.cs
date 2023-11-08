@@ -54,7 +54,7 @@ namespace WebAPIAutores.Controllers
 
         public async Task<ActionResult<List<Autor>>> Get()
         {
-            //throw new NotImplementedException();
+            //  throw new NotImplementedException();
             logger.LogInformation("Estamos obteniedo los autoes");
             logger.LogWarning("Este es un mensaje de prueba");
             servicio.RealizarTarea();

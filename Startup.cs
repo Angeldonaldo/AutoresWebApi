@@ -33,7 +33,7 @@ namespace WebAPIAutores
             services.AddScoped<ServicioScoped>();
             services.AddScoped<ServicioSingleton>();
             services.AddTransient<MiFiltroDeAccion>();
-
+            services.AddHostedService<EscribirEnArchivo>(); 
             services.AddResponseCaching();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
             services.AddSwaggerGen(c => c.SwaggerDoc("v1",new Microsoft.OpenApi.Models.OpenApiInfo { Title ="WebApiAutores",Version= "v1"}));
